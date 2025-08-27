@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual environment
+venv/
+.env/
+
+# Jupyter / VSCode
+.ipynb_checkpoints/
+.vscode/
+
+# Model files
+*.h5
+*.hdf5
+*.ckpt
+*.weights
+*.csv
