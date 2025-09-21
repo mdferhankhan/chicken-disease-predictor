@@ -46,13 +46,17 @@ def home(request):
         confidence = f"{np.max(preds) * 100:.2f}%"
         image_url = fs.url(filename)
 
-        # redirect with query params
-        return redirect(f"/?result={result}&confidence={confidence}&image={image_url}")
+        # Store in session
+        request.session['result'] = result
+        request.session['confidence'] = confidence
+        request.session['image_url'] = image_url
 
-    # If GET with query params
-    result = request.GET.get("result")
-    confidence = request.GET.get("confidence")
-    image_url = request.GET.get("image")
+        return redirect("/")
+
+    # Get from session if available
+    result = request.session.pop('result', None)
+    confidence = request.session.pop('confidence', None)
+    image_url = request.session.pop('image_url', None)
 
     return render(request, "home.html", {
         "result": result,
