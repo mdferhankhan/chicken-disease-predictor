@@ -24,6 +24,13 @@ def home(request):
     if request.method == "POST" and request.FILES.get("image"):
         img_file = request.FILES["image"]
 
+        # Remove old images from media folder
+        media_folder = settings.MEDIA_ROOT
+        for filename in os.listdir(media_folder):
+            file_path = os.path.join(media_folder, filename)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+
         fs = FileSystemStorage()
         filename = fs.save(img_file.name, img_file)
         img_path = fs.path(filename)
